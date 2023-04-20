@@ -37,3 +37,13 @@ class Transformacje():
             l = np.arctan2(Y,X)
             print(f,l,h)
             return (f,l,h)
+    
+    
+        def flh2XYZ(self,f,l,h):
+            N = self.a / np.sqrt(1- self.e2 * np.sin(f)**2)
+            X = (N + h) * np.cos(f) * np.cos(l)
+            Y = (N + h) * np.cos(f) * np.sin(l)
+            Z = (N * (1 - self.e2) + h) * np.sin(f) 
+            print(X,Y,Z)
+            return(X,Y,Z)
+        
