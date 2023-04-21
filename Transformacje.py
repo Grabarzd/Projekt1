@@ -47,3 +47,25 @@ class Transformacje():
             print(X,Y,Z)
             return(X,Y,Z)
         
+        
+        def NEU(self,X,Y,Z):
+            p = np.sqrt(X**2 + Y**2)
+            #print('p=',p)
+            f = np.arctan(Z /( p * (1 - self.e2)))
+            #dms(f)
+            while True:
+                N = self.a / np.sqrt(1- self.e2 * np.sin(f)**2)
+                #print('N = ',N)
+                h = (p / np.cos(f)) - N
+            # print('h = ',h)
+                fp = f
+                f = np.arctan(Z / (p * (1 - self.e2 * (N / (N + h)))))
+                #dms(f)
+                if np.abs(fp - f) <( 0.000001/206265):
+                    break
+            l = np.arctan2(Y,X)
+            R = np.array([[-np.sin(f)*np.cos(l), -np.sin(l), np.cos(f)*np.cos(l)],
+                        [-np.sin(f)*np.sin(l), np.cos(l), np.cos(f)*np.sin(l)],
+                        [np.cos(f), 0, np.sin(f)]])
+            print(R)
+            return R
