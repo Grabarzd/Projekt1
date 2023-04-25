@@ -48,15 +48,15 @@ try:
                 
                 INPUT:
                 *******___
-                X-odległość od środka masy ziemii do punktu, równoległa do kierunku północy || type==float, units==meters
-                Y-odległość od środka masy ziemii do punktu, równoległa do kierunku wschodu || type==float, units==meters
-                Z-odległość od środka masy ziemii do punktu, równoległa do osi obrotu ziemii  || type==float, units==meters
+                X-odległość od środka masy ziemii do punktu, równoległa do kierunku północy                             || type==float, units==meters
+                Y-odległość od środka masy ziemii do punktu, równoległa do kierunku wschodu                             || type==float, units==meters
+                Z-odległość od środka masy ziemii do punktu, równoległa do osi obrotu ziemii                            || type==float, units==meters
                 
                 OUTPUT:
                 *******
-                f-długość geocentryczna || type==float, units==radians
-                l-szerokość geocentryczna || type==float, units==radians
-                h-odległość pomiędzy punktami przecięcia pierwszego wertykału z wielką półosią oraz osią obrotu ziemi || type==float, units==meters
+                f-szerokość geocentryczna || type==float, units==radians
+                l-długość geocentryczna || type==float, units==radians
+                h-odległość pomiędzy punktami przecięcia pierwszego wertykału z wielką półosią oraz osią obrotu ziemi   || type==float, units==meters
         
                 Dodatkowy opis:
                 ***************
@@ -86,15 +86,15 @@ try:
         
                 INPUT:
                 *******___
-                f-długość geocentryczna || type==float, units==radians
-                l-szerokość geocentryczna || type==float, units==radians
-                h-odległość pomiędzy punktami przecięcia pierwszego wertykału z wielką półosią oraz osią obrotu ziemi || type==float, units==meters
+                f-szerokość geocentryczna || type==float, units==radians
+                l-długość geocentryczna || type==float, units==radians
+                h-odległość pomiędzy punktami przecięcia pierwszego wertykału z wielką półosią oraz osią obrotu ziemi   || type==float, units==meters
         
                 OUTPUT:
                 *******
-                X-odległość od środka masy ziemii do punktu, równoległa do kierunku północy || type==float, units==meters
-                Y-odległość od środka masy ziemii do punktu, równoległa do kierunku wschodu || type==float, units==meters
-                Z-odległość od środka masy ziemii do punktu, równoległa do osi obrotu ziemii  || type==float, units==meters
+                X-odległość od środka masy ziemii do punktu, równoległa do kierunku północy                             || type==float, units==meters
+                Y-odległość od środka masy ziemii do punktu, równoległa do kierunku wschodu                             || type==float, units==meters
+                Z-odległość od środka masy ziemii do punktu, równoległa do osi obrotu ziemii                            || type==float, units==meters
         
                 Dodatkowy opis:
                 ***************
@@ -114,13 +114,13 @@ try:
         
                 INPUT:
                 *******___
-                X-odległość od środka masy ziemii do punktu, równoległa do kierunku północy || type==float, units==meters
-                Y-odległość od środka masy ziemii do punktu, równoległa do kierunku wschodu || type==float, units==meters
-                Z-odległość od środka masy ziemii do punktu, równoległa do osi obrotu ziemii  || type==float, units==meters
+                X-odległość od środka masy ziemii do punktu, równoległa do kierunku północy     || type==float, units==meters
+                Y-odległość od środka masy ziemii do punktu, równoległa do kierunku wschodu     || type==float, units==meters
+                Z-odległość od środka masy ziemii do punktu, równoległa do osi obrotu ziemii    || type==float, units==meters
         
                 OUTPUT:
                 *******
-                NEU-macierz obrotu || type==array, units==none
+                NEU-macierz obrotu                                                              || type==array, units in array==none
                 
                 Dodatkowy opis:
                 ***************
@@ -151,19 +151,21 @@ try:
                 
             def fl2xygk1992(self,f,l):
                 '''
-                Cel
+                Funkcja ma na celu wyznaczenie współrzędnych płaskich dla odwzorowania Gaussa-Krugera dla układu PL2000
                 
                 INPUT:
-                *******___
-                f-długość geocentryczna || type==float, units==radians
-                l-szerokość geocentryczna || type==float, units==radians
+                *******
+                f-szerokość geocentryczna                                                                       || type==float, units==radians
+                l-długość geocentryczna                                                                         || type==float, units==radians
         
                 OUTPUT:
                 *******
-                
+                xgk1992-współrzędna płaska X dla odwzorowania Gaussa-Krugera z uwzględnieniem skali dla PL1992  || type==float, units==meters
+                ygk1992-współrzędna płaska Y dla odwzorowania Gaussa-Krugera z uwzględnieniem skali dla PL1992  || type==float, units==meters
+
                 Dodatkowy opis:
                 ***************
-                
+
                 '''
                 l0=radians(19)
                 b2 = (self.a ** 2) * (1 - self.e2)
@@ -183,19 +185,21 @@ try:
             
             def fl2xygk2000(self,f,l,l0):
                 '''
-                Cel
+                Funkcja ma na celu wyznaczenie współrzędnych płaskich dal odwzorowania Gaussa-Krugera dla układu PL2000
                 
                 INPUT:
-                *******___
-                f-długość geocentryczna || type==float, units==radians
-                l-szerokość geocentryczna || type==float, units==radians
+                *******
+                f-szerokość geocentryczna                                                                       || type==float, units==radians
+                l-długość geocentryczna                                                                         || type==float, units==radians
         
                 OUTPUT:
                 *******
-                
+                xgk2000-współrzędna płaska X dla odwzorowania Gaussa-Krugera z uwzględnieniem skali dla PL2000  || type==float, units==meters
+                ygk2000-współrzędna płaska Y dla odwzorowania Gaussa-Krugera z uwzględnieniem skali dla PL2000  || type==float, units==meters
+
                 Dodatkowy opis:
                 ***************
-                
+
                 '''
                 b2 = (self.a ** 2) * (1 - self.e2)
                 ep2 = (self.a ** 2 - b2) / b2
@@ -214,13 +218,18 @@ try:
             
             def xy1992(self,xgk1992,ygk1992):
                 '''
-                Cel
+                Celem funkcji jest wyznaczenie współrzędnych płaskich w układzie PL1992
                 
                 INPUT:
                 *******
+                xgk1992-współrzędna płaska X dla odwzorowania Gaussa-Krugera z uwzględnieniem skali dla PL1992  || type==float, units==meters
+                ygk1992-współrzędna płaska Y dla odwzorowania Gaussa-Krugera z uwzględnieniem skali dla PL1992  || type==float, units==meters
         
                 OUTPUT:
                 *******
+                x1992-współrzędna płaska X dla układu PL1992                                                    || type==float, units==meters
+                y1992-współrzędna płaska Y dla układu PL1992                                                    || type==float, units==meters
+
                 
                 Dodatkowy opis:
                 ***************
@@ -233,18 +242,19 @@ try:
             
             def strefy2000(self,l):
                 '''
-                Cel
+                Zdefiniowana implementacja ma za zadanie wyznaczenie strefy w której znajduje zadany punkt
                 
                 INPUT:
                 ******
-                l-szerokość geocentryczna || type==float, units==radians
+                l-długość geocentryczna                     || type==float, units==radians
         
                 OUTPUT:
                 *******
+                l0-długość geograficzna południka osiowego  || type==float, units==radians
                 
                 Dodatkowy opis:
                 ***************
-                
+                Poprzez odczyt długości geocentrycznej oraz porównanie jej z charakterystycznymi strefami dla układu PL2000 wybiera obszar na którym leży zadany punkt
                 '''
                 l0 = 0
                 n = 0
@@ -268,13 +278,18 @@ try:
         
             def xy2000(self,xgk2000,ygk2000,n):
                 '''
-                Cel
+                Celem funkcji jest wyznaczenie współrzędnych płaskich w układzie PL2000
                 
                 INPUT:
                 *******
+                xgk2000-współrzędna płaska X dla odwzorowania Gaussa-Krugera z uwzględnieniem skali dla PL2000  || type==float, units==meters
+                ygk2000-współrzędna płaska Y dla odwzorowania Gaussa-Krugera z uwzględnieniem skali dla PL2000  || type==float, units==meters
         
                 OUTPUT:
                 *******
+                x2000-współrzędna płaska X dla układu PL2000                                                    || type==float, units==meters
+                y2000-współrzędna płaska Y dla układu PL2000                                                    || type==float, units==meters
+
                 
                 Dodatkowy opis:
                 ***************
@@ -287,14 +302,19 @@ try:
             
             def XYZ(self,filepath):
                 '''
-                Cel
+                Funkcja ma na celu odczytanie wartości XYZ z pliku z danymi
                 
                 INPUT:
                 *******
-        
+                filepath-ścieżka do pliku w formacie .txt                                                  || type==str, units==none
+
                 OUTPUT:
                 *******
-                
+                dane-lista do której zostają zapisane dane z pliku w postaci [[X1,Y1,Z1]...[Xn,Yn,Zn]]     || type==list, units in list==meters
+                X-odległość od środka masy ziemii do punktu, równoległa do kierunku północy                || type==float, units==meters
+                Y-odległość od środka masy ziemii do punktu, równoległa do kierunku wschodu                || type==float, units==meters
+                Z-odległość od środka masy ziemii do punktu, równoległa do osi obrotu ziemii               || type==float, units==meters
+
                 Dodatkowy opis:
                 ***************
                 
@@ -314,14 +334,19 @@ try:
             
             def BLH(self,filepath):
                 '''
-                Cel
+                Funkcja ma na celu odczytanie wartości BLH z pliku z danymi
                 
                 INPUT:
                 *******
-        
+                filepath-ścieżka do pliku w formacie .txt                                                               || type==str, units==none
+
                 OUTPUT:
                 *******
-                
+                dane-lista do której zostają zapisane dane z pliku w postaci [[B1,L1,H1]...[Bn,Ln,Hn]]                  || type==list, units in list==radians
+                B-szerokość geocentryczna                                                                               || type==float, units==radians
+                L-długość geocentryczna                                                                                 || type==float, units==radians
+                H-odległość pomiędzy punktami przecięcia pierwszego wertykału z wielką półosią oraz osią obrotu ziemi   || type==float, units==meters
+
                 Dodatkowy opis:
                 ***************
                 
@@ -341,14 +366,18 @@ try:
             
             def BL(self,filepath):
                 '''
-                Cel
+                Funkcja ma na celu odczytanie wartości BL z pliku z danymi
                 
                 INPUT:
                 *******
-        
+                filepath-ścieżka do pliku w formacie .txt                                           || type==str, units==none
+
                 OUTPUT:
                 *******
-                
+                dane-lista do której zostają zapisane dane z pliku w postaci [[B1,L1]...[Bn,Ln]]    || type==list, units in list==radians
+                B-szerokość geocentryczna                                                           || type==float, units==radians
+                L-długość geocentryczna                                                             || type==float, units==radians
+
                 Dodatkowy opis:
                 ***************
                 
@@ -371,7 +400,7 @@ try:
             parser.add_argument('-method', '--method',help='Podaj co chcesz wyznaczyć:\n-BLH\n-XYZ\n-NEU\n-PL2000\n-PL1992',default='BLH')
             args = parser.parse_args()
             
-            print("\n     Podana scieżka do pliku:      ", args.filepath)
+            print("\n     Podana ścieżka do pliku:      ", args.filepath)
             print("\n     Wybrany model elipsoidy:      ", args.model)
             print("\n     Wybrana transformacja:        ", args.method)
             
@@ -504,5 +533,5 @@ try:
         print('')
 except FileNotFoundError:
     print(112*'!'+'\n')
-    print(f'Plik {args.filepath} nie został odnaleziony, sprawdź czy scieżka została prawidłowo wpisana')
+    print(f'Plik {args.filepath} nie został odnaleziony, sprawdź czy ścieżka została prawidłowo wpisana')
     print('\n'+112*'!'+'\n')
