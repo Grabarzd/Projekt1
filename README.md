@@ -1,4 +1,4 @@
-# Projekt1
+# Transformacje.py
 
 
 
@@ -94,11 +94,59 @@ Jest to okienko pomocy które wskazuje nam możliwe do wykorzystania opcje:
 
 
 
- Przykłady startu programu Transformacje.py:
- - python Transformacje.py -filepath C:/Users/Dominik/Desktop/Informatyka/Projekt_1 -m GRS80 -method XYZ     (wywołuje statr programu przy wtborze pliku C:/Users/Dominik/Desktop/Informatyka/Projekt_1 , elipsoidy GRS80 oraz transformuje współrzędne BLH na XYZ)
- - python Transformacje.py -filepath C:/Users/Dominik/Desktop/Informatyka/Projekt_1      (wywołuje statr programu przy wtborze pliku C:/Users/Dominik/Desktop/Informatyka/Projekt_1 , elipsoidy GRS80{wartość nominalna} oraz transformuje współrzędne BLH na XYZ{wartość nominalna})
- - python Transformacje.py -filepath C:/Users/Dominik/Desktop/Informatyka -m Krasowski -method NEU      (wywołuje statr programu przy wtborze pliku C:/Users/Dominik/Desktop/Informatyka, elipsoida Krasowskiego oraz transformuje współrzędne XYZ na NEU
- - python Transformacje.py -filepath C:/Users/Dominik/Desktop/Informatyka/Projekt_1 -WGS84      (wywołuje statr programu przy wtborze pliku C:/Users/Dominik/Desktop/Informatyka/Projekt_1 , elipsoidy WGS84
+Przykłady startu programu Transformacje.py:
+ - python Transformacje.py -filepath C:/Users/Dominik/Desktop/Informatyka/Projekt_1 -m GRS80 -method XYZ     
+ 
+ 		wywołuje statr programu przy wtborze pliku C:/Users/Dominik/Desktop/Informatyka/Projekt_1 , elipsoidy GRS80 oraz transformuje współrzędne BLH na XYZ
+		
+ - python Transformacje.py -filepath C:/Users/Dominik/Desktop/Informatyka/Projekt_1      
+ 
+ 		wywołuje statr programu przy wtborze pliku C:/Users/Dominik/Desktop/Informatyka/Projekt_1 , elipsoidy GRS80{wartość nominalna} oraz transformuje współrzędne BLH na XYZ{wartość nominalna}
+ 
+ - python Transformacje.py -filepath C:/Users/Dominik/Desktop/Informatyka -m Krasowski -method NEU
+ 
+ 		wywołuje statr programu przy wtborze pliku C:/Users/Dominik/Desktop/Informatyka, elipsoida Krasowskiego oraz transformuje współrzędne XYZ na NEU
+		
+ - python Transformacje.py -filepath C:/Users/Dominik/Desktop/Informatyka/Projekt_1 -WGS84      
+ 
+ 		wywołuje statr programu przy wtborze pliku C:/Users/Dominik/Desktop/Informatyka/Projekt_1 , elipsoidy WGS84 oraz transformuje współrzędne BLH na XYZ{wartość nominalna}
+
+Program jest również przygotowany na błędne komendy podane poprzez użytkownika, wskazuje błąd oraz wskazuje sposób rozwwiązania.
+Jednakże podczas próby uruchomienia skryptu po podaniu więcej niż jednej błędnej komendy program zwróci wyłącznie jeden błąd po rozwiązaniu którego program jako output zwróci kolejny.
+Błędy jakie program rozwiązuje to następująco:
+- Błędnie wprowadzona ścieżka do pliku:
+
+		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+		Plik C:\Users\Dominik\Desktop\cos\infa\example.tx nie został odnaleziony, sprawdź czy ścieżka została prawidłowo wpisana
+
+		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		
+- Próba implementacji niedostępnej transformacji:
+
+		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+		x nie jest obsługiwane przez program, proszę o wybór z dostępnej listy atrybutów:
+ 		-BLH
+ 		-XYZ
+ 		-NEU
+ 		-PL2000
+		-PL1992
+
+		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+- Wybór elipsoidy nie uwzględnionej w programie:
+
+		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+		Podana wartosć nie jest obsługiwana poprzez program, wybierz z dostępnych uwzględniając wielkosć znaków:
+		-GRS80
+		-WGS84
+		-Krasowski
+
+		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
 
 
 Rozpoczęcie skryptu zainicjuje implementacje transformacje pliku z danymi oraz jako output stworzy plik tekstowy w katalogu w którym znajdują się dane wyjściowe:
