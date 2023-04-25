@@ -103,7 +103,7 @@ Jest to okienko pomocy które wskazuje nam możliwe do wykorzystania opcje:
 
 Rozpoczęcie skryptu zainicjuje implementacje transformacje pliku z danymi oraz jako output stworzy plik tekstowy w katalogu w którym znajdują się dane wyjściowe:
 
-	- dla metody BLH utworzy plik Dane_Z_Transformacji_BLH.txt:
+- dla metody BLH utworzy plik Dane_Z_Transformacji_BLH.txt:
 
 		---------------------------------------------------------------------------------
 		|                   Wykaz przetransformowanych wspolrzednych                     |
@@ -117,7 +117,7 @@ Rozpoczęcie skryptu zainicjuje implementacje transformacje pliku z danymi oraz 
 		|       n|                 60.000|                 50.000|              10000.000|
 		---------------------------------------------------------------------------------
 
-	- dla metody XYZ utworzy plik Dane_Z_Transformacji_XYZ.txt:
+- dla metody XYZ utworzy plik Dane_Z_Transformacji_XYZ.txt:
 
 		---------------------------------------------------------------------------------
 		|                   Wykaz przetransformowanych wspolrzednych                     |
@@ -131,7 +131,7 @@ Rozpoczęcie skryptu zainicjuje implementacje transformacje pliku z danymi oraz 
 		|       n|               1000.000|               1000.000|               1000.000|
 		---------------------------------------------------------------------------------
 
-	- dla metody NEU utworzy plik Dane_Z_Transformacji_NEU.txt:
+- dla metody NEU utworzy plik Dane_Z_Transformacji_NEU.txt:
 
 
 					       Macierz obrotu dla pkt n
@@ -144,7 +144,7 @@ Rozpoczęcie skryptu zainicjuje implementacje transformacje pliku z danymi oraz 
 
 
 
-	- dla metody PL2000 utworzy plik Dane_Z_Transformacji_PL2000.txt:
+- dla metody PL2000 utworzy plik Dane_Z_Transformacji_PL2000.txt:
 
 		---------------------------------------------------------------------------------
 		|                   Wykaz przetransformowanych wspolrzednych                     |
@@ -158,7 +158,7 @@ Rozpoczęcie skryptu zainicjuje implementacje transformacje pliku z danymi oraz 
 		|       n|               1000.000|               1000.000|               1000.000|
 		---------------------------------------------------------------------------------
 
-	- dla metody PL1992 utworzy plik Dane_Z_Transformacji_PL1992.txt:
+- dla metody PL1992 utworzy plik Dane_Z_Transformacji_PL1992.txt:
 
 		---------------------------------------------------------------------------------
 		|                   Wykaz przetransformowanych wspolrzednych                     |
