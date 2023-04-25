@@ -32,6 +32,27 @@ class Transformacje():
         self.e2 = (2 * self.flattening - self.flattening ** 2)
         
     def hirvonen(self,X,Y,Z):
+        '''
+        Funkcja pozwala wyznaczyć współrzędne geocentryczne punktu na powierzchni ziemi.
+        
+        INPUT:
+        *******
+        X-odległość od środka masy ziemii do punktu, równoległa do kierunku północy || type==float, units==meters
+        Y-odległość od środka masy ziemii do punktu, równoległa do kierunku wschodu || type==float, units==meters
+        Z-odległość od środka masy ziemii do punktu, równoległa do osi obrotu ziemii  || type==float, units==meters
+        
+        OUTPUT:
+        *******
+        f-długość geocentryczna || type==float, units==radians
+        l-szerokość geocentryczna || type==float, units==radians
+        h-odległość pomiędzy punktami przecięcia pierwszego wertykału z wielką półosią oraz osią obrotu ziemi || type==float, units==meters
+
+        Dodatkowy opis:
+        ***************
+        Wykorzystujemy iterację do wyznaczenia ostatecznej wartości f, pozwoli ona na wyznaczenie pozostałych parametrów.
+        
+        '''
+
         p = np.sqrt(X**2 + Y**2)
         #print('p=',p)
         f = np.arctan(Z /( p * (1 - self.e2)))
@@ -48,24 +69,28 @@ class Transformacje():
                 break
         l = np.arctan2(Y,X)
         return (f,l,h)
-    
-    
-    def dms(x):
-        sig = ' '
-        if x < 0:
-            sig = '-'
-            x = abs(x)
-        x = x * 180/pi
-        d = int(x)
-        m = int(60 * (x - d))
-        s = (x - d - m/60)*3600
-        if d>360:
-            calosc=d//360
-            d=d-calosc*360
-        print(sig,'%3d' % d,'°', '%2d' % m,"'",'%7.5f' % s,'"')
-        
-        
+     
     def flh2XYZ(self,f,l,h):
+        '''
+        Funkcja transformuje współrzędne geocyntryczne na współrzędne kartezjańskie.
+
+        INPUT:
+        *******
+        f-długość geocentryczna || type==float, units==radians
+        l-szerokość geocentryczna || type==float, units==radians
+        h-odległość pomiędzy punktami przecięcia pierwszego wertykału z wielką półosią oraz osią obrotu ziemi || type==float, units==meters
+
+        OUTPUT:
+        *******
+        X-odległość od środka masy ziemii do punktu, równoległa do kierunku północy || type==float, units==meters
+        Y-odległość od środka masy ziemii do punktu, równoległa do kierunku wschodu || type==float, units==meters
+        Z-odległość od środka masy ziemii do punktu, równoległa do osi obrotu ziemii  || type==float, units==meters
+
+        Dodatkowy opis:
+        ***************
+        
+        '''
+
         N = self.a / np.sqrt(1- self.e2 * np.sin(f)**2)
         X = (N + h) * np.cos(f) * np.cos(l)
         Y = (N + h) * np.cos(f) * np.sin(l)
@@ -75,6 +100,24 @@ class Transformacje():
     
     
     def NEU(self,X,Y,Z):
+        '''
+        Funkcja ma na celu wyznaczenie macierzy obrotu dla podanych współrzędnych kartezjańskich
+
+        INPUT:
+        *******
+        X-odległość od środka masy ziemii do punktu, równoległa do kierunku północy || type==float, units==meters
+        Y-odległość od środka masy ziemii do punktu, równoległa do kierunku wschodu || type==float, units==meters
+        Z-odległość od środka masy ziemii do punktu, równoległa do osi obrotu ziemii  || type==float, units==meters
+
+        OUTPUT:
+        *******
+        NEU-macierz obrotu || type==array, units==none
+        
+        Dodatkowy opis:
+        ***************
+        Argumenty w macierzy są wynikami zaiplementowanych funkcji trygonometrycznych z czego wynika brak jednostek.
+        '''
+
         p = np.sqrt(X**2 + Y**2)
         #print('p=',p)
         f = np.arctan(Z /( p * (1 - self.e2)))
