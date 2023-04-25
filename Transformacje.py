@@ -30,10 +30,7 @@ try:
                     self.b = 6356863.019
                 else:
                     print(112*'!'+'\n')
-                    print('''Podana wartosć nie jest obsługiwana poprzez program, wybierz z dostępnych uwzględniając wielkosć znaków:\n
-                          -GRS80\n
-                          -WGS84\n
-                          -Krasowski\n\n\n''')
+                    print('Podana wartosć nie jest obsługiwana poprzez program, wybierz z dostępnych uwzględniając wielkosć znaków:\n-GRS80\n-WGS84\n-Krasowski\n')
                     print(112*'!')
                         
                         
@@ -533,5 +530,5 @@ try:
         print('')
 except FileNotFoundError:
     print(112*'!'+'\n')
-    print(f'Plik {args.filepath} nie został odnaleziony, sprawdź czy ścieżka została prawidłowo wpisana')
+    print(f'Plik {args.filepath} nie został odnaleziony, sprawdź czy ścieżka została prawidłowo wprowadzona')
     print('\n'+112*'!'+'\n')
