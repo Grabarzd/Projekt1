@@ -34,9 +34,9 @@ Plik z danymi powinien zostać utworzony na podstawie pliku przykładowego examp
 - Puste wiersze w pliku tekstowym będą powodowały pojawienie się błędów uniemożliwiających dalsze działanie programu.
 - Dane podawane w pliku .txt powinny być zapisane w postaci następujących jednostek:
 
--- XYZ jako dane metryczne zapisane z dowolną dokładnością
+- XYZ jako dane metryczne zapisane z dowolną dokładnością
 
--- BLH:
+- BLH:
 	
 	B oraz L jako kąty w mierze łukowej z dowolną dokładnością [rho]
 	H jako dana w postaci metrycznej [m]	
