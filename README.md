@@ -3,12 +3,15 @@
 
 
 Program Transformacje.py ma na celu transformacje pomiędzy układami współrzędnych takimi jak:
-- XYZ -> BLH
-- BLH -> XYZ
-- XYZ -> NEU
-- BL -> XY w układzie PL2000
-- BL -> XY w układzie PL1992
 
+```mermaid
+graph LR
+A[XYZ] -->B[BLH]
+C[BLH] --> D[XYZ]
+E[XYZ] --> F[NEU]
+G[BL] --> H[XY PL2000]
+I[BL] --> J[XY PL1992]
+```
 
 
 Program został stworzony przy wykorzystaniu oprogramowania Spyder 5.4.3 w sposób umożliwiający zaimportowanie pliku w formacie .txt, owy plik pozwoli na transformację danych w ograniczonych wyłącznie ilością współrzędnych.
