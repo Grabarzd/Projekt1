@@ -45,13 +45,13 @@ Plik z danymi powinien zostać utworzony na podstawie pliku przykładowego examp
 	H jako dana w postaci metrycznej [m]	
 
 Przykład utworzonego wiersza danych:
-- BLH:
+- BLH w kolejności B L H:
 
 		5.12331 1.41213 24541.165
-- BL:
+- BL w kolejności B L:
 
 		5.12331 1.41213
-- XYZ:
+- XYZ w kolejności X Y Z:
 
 		5416810.156 8184131.642 4616413.1648
 
