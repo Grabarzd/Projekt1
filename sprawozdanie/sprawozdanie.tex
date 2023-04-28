@@ -1,0 +1,201 @@
+\documentclass[a4paper,titleauthor]{mwart} 
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx} %pakiet do wstawiania grafiki
+\usepackage[hyphens]{url} %pakiet do wstawiania linkow
+%\usepackage[hidelinks,breaklinks]{hyperref}
+\usepackage{authblk}%pakiet do tworzenia afiliacji
+\usepackage{tabularx}%pakiet do tabel
+\usepackage[a4paper, left=2cm, right=2cm, top=3cm, bottom=3cm]{geometry}
+\usepackage{listings}
+\usepackage{placeins}%pakiet do kontroli umieszczania obiektow
+\usepackage{hyperref}%pakiet do m.in. kolorowania linkow
+\usepackage{fancyhdr}
+\usepackage{float} 
+\usepackage{hyperref}
+\usepackage[tablegrid,owncaptions]{vhistory}
+\usepackage{subfigure}
+\usepackage{listings}
+\usepackage{wrapfig}
+\usepackage{supertabular}
+\usepackage{}
+\usepackage[polish]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{caption}
+\renewcommand\figurename{Rys.}%skrocony podpis
+\renewcommand\lstlistingname{Wydruk}
+
+
+%------------------------------------------------------------------------
+% Dane do strony tytułowej
+% Początek dokumentu
+\begin{document}
+
+\thispagestyle{empty}
+\begin{center}{\sc \Large
+Politechnika Warszawska\\
+}\par\vspace{0.2cm}\par
+{\large
+Wydział Geodezji i Kartografii\\
+Kierunek Geodezja i Kartografia
+
+}\end{center}
+\vspace{5cm}
+\begin{center}
+
+{\LARGE
+ Informatyka geodezyjna\\
+\textbf{Projekt numer 1}\\
+
+Prowadzący:\\
+mgr inż. Andrzej Szeszko\\
+
+}
+\end{center}
+\vspace{4cm}
+\begin{flushright}
+
+{\large
+Autorzy:\\
+Dominik Sawczuk 319372\\
+Karol Pawłowski 319354 \\
+Grupa 3b\\
+}
+\end{flushright}
+\vfill
+\begin{center}
+Warszawa 2023
+\end{center}
+
+%---------------------------------------------------------------
+\newpage
+
+ %Automatycznie generowany spis treści
+\tableofcontents
+\newpage
+%------------------------------------------------
+\section{Cel ćwiczenia} 
+Program Transformacje.py ma na celu przeprowadzenie transformacji pomiędzy układami współrzędnych takimi jak:
+\begin{itemize}
+    \item \textbf{XYZ} $\rightarrow$ \textbf{BLH}
+    \item \textbf{BLH} $\rightarrow$ \textbf{XYZ}
+    \item XYZ $\rightarrow$ \textbf{NEU}
+    \item \textbf{BL} $\rightarrow$ \textbf{XY2000}
+    \item \textbf{BL} $\rightarrow$ \textbf{XY1992}
+\end{itemize}
+
+\vspace{0.5cm}
+Ponadto program powinien obsługwać elipsoidy:
+\begin{itemize}
+    \item \textbf{GRS80}
+    \item \textbf{WGS84}
+    \item \textbf{Krasowskiego}
+\end{itemize}
+\section{Wymagania systemowe}
+W celu implementacji transformacji zalecane jest wykorzystanie systemu operacyjnego Windows 11 oraz oprogramowania python v3.10 wraz z zainstalowanymi bibliotekami takimi jak:
+\begin{itemize}
+    \item numpy--dodaje obsułgę wielowymiarowych tablic i macierzy oraz dostarcza wiele funkcji matematycznych i operacji algebraicznych, które pozwalają na efektywne wykonywanie operacji na dużych zbiorach danych numerycznych. Wykorzystując tą bibliotekę uzyskujemy schludniejszy kod oraz precyzyjne wyniki
+    \begin{flushright}
+        \cite{numpy}
+    \end{flushright}
+    \item argparse--umożliwia stworzenie przyjaznych dla użytkownika interfejsów wiersza poleceń. Program określa, jakich argumentów potrzebuje, a \textit{argparse} je przeanalizuje. Moduł \textit{argparse} automatycznie generuje komunikaty pomocy i użytkowania.
+    \begin{flushright}
+        \cite{argparse}
+    \end{flushright}
+    \item math-- dostarcza zestaw funkcji matematycznych w języku Python, umożliwiających przeprowadzanie różnych obliczeń numerycznych. Biblioteka ta jest dostępna w standardowej instalacji języka Python i nie wymaga żadnych dodatkowych instalacji.
+    \begin{flushright}
+        \cite{math}
+    \end{flushright}
+\end{itemize}
+
+\section{Przebieg ćwiczenia}
+    \subsection{Charakterystyka funkcji}
+    \begin{itemize}
+        \item \textbf{XYZ} $\rightarrow$ \textbf{BLH} --funkcja transformująca współrzędne kartezjańskie \textbf{XYZ} na elipsoidzie do współrzędnych geocentrycznych \textbf{BLH}.
+        \begin{flushright}
+            \cite{ewmapa}
+        \end{flushright}
+        \item \textbf{BLH} $\rightarrow$ \textbf{XYZ} --funkcja transformująca współrzędne geocentryczne \textbf{BLH} do współrzędnych kartezjańskich \textbf{XYZ} na elipsoidzie.  
+        \begin{flushright}
+            \cite{ewmapa}
+        \end{flushright}
+        \item \textbf{XYZ} $\rightarrow$ \textbf{NEU} --funkcja transformująca współrzędne kartezjańskie \textbf{XYZ} na elipsoidzie do macierzy obrotu \textbf{NEU}
+        \begin{flushright}
+            \cite{ASGEUPOS2021}
+        \end{flushright}
+        \item \textbf{BL} $\rightarrow$ \textbf{XY2000} --funkcja transformująca współrzędne geocentryczne \textbf{BLH} do współrzędnych \textbf{XY} Gausa Krygera, a nastepnie otrzymane współrzędne przelicza do współrzędnych \textbf{XY} w układzie \textbf{pl2000}
+        \begin{flushright}
+            \cite{ASGEUPOS2021}
+        \end{flushright}
+        \item \textbf{BL} $\rightarrow$ \textbf{XY1992} --funkcja transformująca współrzędne geocentryczne \textbf{BLH} do współrzędnych \textbf{XY} Gausa Krygera, a nastepnie otrzymane współrzędne przelicza do współrzędnych \textbf{XY} w układzie \textbf{pl1992}
+        \begin{flushright}
+            \cite{ASGEUPOS2021}
+        \end{flushright}
+    \end{itemize}
+
+
+    \subsection{Charakterystyka elipsoid}
+    \begin{enumerate}
+        \item \textbf{GRS80} -- jeden z najczęściej używanych modeli geodezyjnych Ziemi. Elipsoida GRS80 jest wykorzystywana do określania dokładnego kształtu Ziemi oraz do dokładnego obliczania odległości, powierzchni i objętości na jej powierzchni.Jest to elipsoida obrotowa, czyli jej kształt jest uzyskiwany przez obrót elipsy wokół jednej z osi.\\
+        Podstawowe parametry elipsoidy
+        \begin{itemize}
+            \item a = 6378137m
+            \item b = 6356752.31414036m
+        \end{itemize}
+        \begin{flushright}
+            \cite{GRS80}
+        \end{flushright}
+        \item \textbf{WGS84}-- jeden z najczęściej używanych modeli geodezyjnych Ziemi. Elipsoida ta została opracowana w celu zapewnienia globalnej jednolitości systemu pozycjonowania GPS oraz umożliwienia spójnego modelowania geoidy na całym świecie. Elipsoida WGS84 jest elipsoidą obrotową, co oznacza, że jej osie nie są prostopadłe do siebie, ale są przesunięte względem siebie. Elipsoida ta jest uważana za dokładną reprezentację kształtu Ziemi, co pozwala na precyzyjne określanie położenia punktów na powierzchni Ziemi.\\
+        Podstawowe parametry elipsoidy:
+        \begin{itemize}
+            \item a = 6378137m
+            \item b = 6356752.31424518m
+        \end{itemize}
+        \begin{flushright}
+            \cite{WGS84}
+        \end{flushright}
+        \item \textbf{Krasowskiego}-- jeden z modeli geoidy opisujący kształt Ziemi.Elipsoida Krasowskiego jest elipsoidą obrotową, co oznacza, że jej kształt jest uzyskiwany poprzez obrót elipsy wokół jednej z jej osi.Elipsoida ta była wykorzystywana w Polsce jako standardowy model geoidy w geodezji i kartografii do lat 90. XX wieku, ale obecnie została zastąpiona nowszymi modelami.\\
+        Podstawowe parametry elipsoidy:
+        \begin{itemize}
+            \item a = 6378245m
+            \item b = 6356863.019m
+        \end{itemize}
+        \begin{flushright}
+            \cite{Krasowski}
+        \end{flushright}
+    \end{enumerate}
+
+
+
+    \subsection{Przebieg}
+    Ćwiczenie należało rozpocząć od utworzenia zdalnego repozytorium przez jednego członka z grupy i udostepnienia dostępu do repozyorium drugiemu członkowi. Na repozytorium zostały utworzone trzy gałęzie odpowiadającę elementą projektu. Galąź \textbf{README} i \textbf{LaTeX} zostały utworzone w celu umieszczania  na nich odpowiednio pliku README i sprawozdania w LaTeX. Na gałęzi \textbf{main} została utworzona klasa \textit{Transformacje} 
+    zawierająca impementację. Implementację zostały utworzone w oparciu o funkcję wykonującę transformację z przedmiotu Geodezja Wyższa w 3 semestrze. Przy pomocy metody \textit{init} zostały wykonane przeliczenia współrzędnych z różnych modeli elipsoid, których zmienne zostały zapisane podczas użycia odwołania \textit{self} w taki sposób aby implementację mogły wykorzystać parametry elisoidy wybranej przez użytkownika. W ćwiczeniu zostosowano wyrażenie warunkowe \textit{if \_\_name\_\_=="\_\_main\_\_"} zapewniającę większą czytelność kodu, oraz biblioteka \textit{argparse}, która umożliwiła użytkownikowi wywołanie programu z poziomu terminala.
+    \newline
+    Program został stworzony przy wykorzystaniu oprogramowania Spyder 5.4.3 w sposób umożliwiający zaimportowanie i zapis pliku w formacie \textit{.txt}.
+    Program został napisany oraz sprawdzony na urządzeniu obsługującym system operacyjny Windows 11, za pomocą języka python w wersji 3.10, w związku z brakiem możliwości przeprowadzenia testów oprogramowania na urządzeniach posiadających starszą wersję systemu operacyjnego nie byliśmy w stanie stwierdzić zgodności z tak owymi systemami. Przy pomocy klauzuli \textit{except} uniemożliwiliśmy uruchomienie programu dla przypadków podania przez użytkownika danych w złym zapisie, wybrania błędnego modelu elipsoidy oraz błędnej metody. W chwili, gdy użytkownik popełni któryś z wymienionych błędów, zostanie on      automatycznie poinformowany na którym etapie go wykonał. 
+
+
+
+\section{Wnioski}
+Praca nad projetem nauczyła nas korzystania ze zdalnego repozytorium \textit{GitHub}, dzięki któremu praca nad kodem stała się sprawniejsza. Mogliśmy podzielić obowiązki w grupie, co przyspieszyło tempo i efektywność pracy, ponieważ każda edycja pliku była widoczna.Dodatkowo nauczyliśmy się obsługi biblioteki \textit{argparse}
+\newline
+Ponadto udało nam się zwiększyć umiejętności w:
+\begin{itemize}
+    \item pisaniu kodu obiektowego w Pythonie
+    \item implementowaniu algorytmów pochodzących ze źródeł zewnętrznych
+    \item tworzeniu dokumentów w latex
+    \item tworzeniu narzędzi w interfejsie tekstowym (cli) potrafiących przyjmować argumenty przy wywołaniu
+    \item pisaniu użytecznej dokumentacji
+\end{itemize}
+\vspace{1cm}
+
+\textbf{\large {Link do repozytorium}}
+\newline
+\textbf{\large https://github.com/Grabarzd/Projekt1}
+
+
+\bibliographystyle{plain}
+\bibliography{biblio}
+
+
+\end{document}
