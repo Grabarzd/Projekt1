@@ -1,17 +1,15 @@
-# Transformacje.py
+# Transpormacje.py
 
 
 
 Program Transformacje.py ma na celu transformacje pomiędzy układami współrzędnych takimi jak:
 
-```mermaid
 graph LR
 A[XYZ] -->B[BLH]
 C[BLH] --> D[XYZ]
 E[XYZ] --> F[NEU]
 G[BL] --> H[XY PL2000]
 I[BL] --> J[XY PL1992]
-```
 
 
 Program został stworzony przy wykorzystaniu oprogramowania Spyder 5.4.3 w sposób umożliwiający zaimportowanie pliku w formacie .txt, owy plik pozwoli na transformację danych w ograniczonych wyłącznie ilością współrzędnych.
@@ -45,13 +43,13 @@ Plik z danymi powinien zostać utworzony na podstawie pliku przykładowego examp
 	H jako dana w postaci metrycznej [m]	
 
 Przykład utworzonego wiersza danych:
-- BLH w kolejności B L H:
+- BLH:
 
 		5.12331 1.41213 24541.165
-- BL w kolejności B L:
+- BL:
 
 		5.12331 1.41213
-- XYZ w kolejności X Y Z:
+- XYZ:
 
 		5416810.156 8184131.642 4616413.1648
 
@@ -91,7 +89,10 @@ Wpisanie owej komendy w Windows commands zwróci:
 
 Komenda odpowiadająca za pomoc wskazuje opcje możliwe do wykorzystania:
 - -filepath jest zmienną wymaganą do zainicjowania startu pliku, wykorzystuje ona podaną ścieżkę na podstawie której program dokona transfomracji
-- -m pozwala na wybór jednej spośród elipsoid odniesienia dostępnych do wykorzystania w programie gdzie GRS80 jest elipsoidą nominalnej (wartości nie trzeba wywoływać w celu obliczeń)
+- -m pozwala na wybór jednej spośród elipsoid odniesienia dostępnych do wykorzystania w programie gdzie GRS80 jest elipsoidą nominalnej (wartości nie trzeba wywoływać w celu obliczeń), dostępne elipsoidy:
+	- GRS80
+	- WGS84
+	- Krasowski
 - -method pozwala na wybór transformacji jaką chcemy rozpocząć:
 	- XYZ pozwala na wyznaczenie XYZ wykorzystując współrzędne geocentryczne BLH ( jest to wartość podstawowa, zostaje zaimplementowana w przypadku gdy nie uwzględnimy zmiennej -method)
 	- BLH rozpoczyna transformację danych z XYZ do BLH
@@ -122,113 +123,15 @@ Program jest przygotowany na błędnie wprowadzone komendy podane poprzez użytk
 Jednakże podczas próby uruchomienia skryptu po podaniu więcej niż jednej błędnej komendy program zwróci wyłącznie jeden błąd po rozwiązaniu którego program jako output zwróci kolejny.
 Błędy jakie program rozwiązuje to następująco:
 - Błędnie wprowadzona ścieżka do pliku:
-
-		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-		Plik C:\Users\Dominik\Desktop\cos\infa\example.tx nie został odnaleziony, sprawdź czy ścieżka została prawidłowo wpisana
-
-		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		
 - Próba implementacji niedostępnej transformacji:
-
-		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-		x nie jest obsługiwane przez program, proszę o wybór z dostępnej listy atrybutów:
- 		-BLH
- 		-XYZ
- 		-NEU
- 		-PL2000
-		-PL1992
-
-		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 - Wybór elipsoidy nie uwzględnionej w programie:
-
-		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-		Podana wartość nie jest obsługiwana poprzez program, wybierz z dostępnych uwzględniając wielkosć znaków:
-		-GRS80
-		-WGS84
-		-Krasowski
-
-		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-
+- Plik posiada niepoprawną ilość danych do przeprowadzenia transformacji
+- Próba obsługi niedostępnego formatu pliku
 
 Rozpoczęcie skryptu zainicjuje implementacje transformacje pliku z danymi oraz jako output utworzy plik tekstowy w katalogu w którym znajduje się plik Transformacje.py:
 
-- dla metody BLH utworzy plik Dane_Z_Transformacji_BLH.txt:
-
-		---------------------------------------------------------------------------------
-		|                   Wykaz przetransformowanych współrzędnych                     |
-		---------------------------------------------------------------------------------
-		| NR PKT |          B[°]         |          L[°]         |          H[m]         |
-		---------------------------------------------------------------------------------
-		|       1|                 60.000|                 50.000|              10000.000|
-		|       .|                 60.000|                 50.000|              10000.000|
-		|       .|                 60.000|                 50.000|              10000.000|
-		|       .|                 60.000|                 50.000|              10000.000|
-		|       n|                 60.000|                 50.000|              10000.000|
-		---------------------------------------------------------------------------------
-
-- dla metody XYZ utworzy plik Dane_Z_Transformacji_XYZ.txt:
-
-		---------------------------------------------------------------------------------
-		|                   Wykaz przetransformowanych współrzędnych                     |
-		---------------------------------------------------------------------------------
-		| NR PKT |          X[m]         |          Y[m]         |          Z[m]         |
-		---------------------------------------------------------------------------------
-		|       1|               1000.000|               1000.000|               1000.000|
-		|       .|               1000.000|               1000.000|               1000.000|
-		|       .|               1000.000|               1000.000|               1000.000|
-		|       .|               1000.000|               1000.000|               1000.000|
-		|       n|               1000.000|               1000.000|               1000.000|
-		---------------------------------------------------------------------------------
-
-- dla metody NEU utworzy plik Dane_Z_Transformacji_NEU.txt:
-
-
-					       Macierz obrotu dla pkt n
-					 _                                 _
-					|                                   |
-					| 0.0016642  -0.7074597    0.7067517|
-					| 0.0016659   0.7067537    0.7074578|
-					| 0.9999972   0.0000000   -0.0023548|
-					|_                                 _|
-
-
-
-- dla metody PL2000 utworzy plik Dane_Z_Transformacji_PL2000.txt:
-
-		---------------------------------------------------------------------------------
-		|                   Wykaz przetransformowanych współrzędnych                     |
-		---------------------------------------------------------------------------------
-		| NR PKT |          X[m]         |          Y[m]         |          Z[m]         |
-		---------------------------------------------------------------------------------
-		|       1|               1000.000|               1000.000|               1000.000|
-		|       .|               1000.000|               1000.000|               1000.000|
-		|       .|               1000.000|               1000.000|               1000.000|
-		|       .|               1000.000|               1000.000|               1000.000|
-		|       n|               1000.000|               1000.000|               1000.000|
-		---------------------------------------------------------------------------------
-
-- dla metody PL1992 utworzy plik Dane_Z_Transformacji_PL1992.txt:
-
-		---------------------------------------------------------------------------------
-		|                   Wykaz przetransformowanych współrzędnych                     |
-		---------------------------------------------------------------------------------
-		| NR PKT |          X[m]         |          Y[m]         |          Z[m]         |
-		---------------------------------------------------------------------------------
-		|       1|               1000.000|               1000.000|               1000.000|
-		|       .|               1000.000|               1000.000|               1000.000|
-		|       .|               1000.000|               1000.000|               1000.000|
-		|       .|               1000.000|               1000.000|               1000.000|
-		|       n|               1000.000|               1000.000|               1000.000|
-		---------------------------------------------------------------------------------
-
-
-
-
-
-
+- dla metody BLH utworzy plik Dane_Z_Transformacji_BLH.txt
+- dla metody XYZ utworzy plik Dane_Z_Transformacji_XYZ.txt
+- dla metody NEU utworzy plik Dane_Z_Transformacji_NEU.txt
+- dla metody PL2000 utworzy plik Dane_Z_Transformacji_PL2000.txt
+- dla metody PL1992 utworzy plik Dane_Z_Transformacji_PL1992.txt
