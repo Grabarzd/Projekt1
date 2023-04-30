@@ -75,7 +75,7 @@ Warszawa 2023
 \newpage
 %------------------------------------------------
 \section{Cel ćwiczenia} 
-Program Transformacje.py ma na celu przeprowadzenie transformacji pomiędzy układami współrzędnych takimi jak:
+Wykorzystując język programowania Python oraz hostingowy serwis internetowy prowadzony w serwisie \href{https://github.com/Grabarzd/Projekt1}{GitHub}, mamy za zadanie stworzyć skrypt programu Transformacje.py, zadaniem skryptu jest przeprowadzenie transformacji pomiędzy układami współrzędnych takimi jak:
 \begin{itemize}
     \item \textbf{XYZ} $\rightarrow$ \textbf{BLH}
     \item \textbf{BLH} $\rightarrow$ \textbf{XYZ}
@@ -85,7 +85,7 @@ Program Transformacje.py ma na celu przeprowadzenie transformacji pomiędzy ukł
 \end{itemize}
 
 \vspace{0.5cm}
-Ponadto program powinien obsługwać elipsoidy:
+Skrypt ma na celu przeprowadzenie transformacji dla następujących elipsoid odniesienia:
 \begin{itemize}
     \item \textbf{GRS80}
     \item \textbf{WGS84}
@@ -108,7 +108,7 @@ W celu implementacji transformacji zalecane jest wykorzystanie systemu operacyjn
     \end{flushright}
 \end{itemize}
 
-\section{Przebieg ćwiczenia}
+\section{Część teoretyczna ćwiczenia}
     \subsection{Charakterystyka funkcji}
     \begin{itemize}
         \item \textbf{XYZ} $\rightarrow$ \textbf{BLH} --funkcja transformująca współrzędne kartezjańskie \textbf{XYZ} na elipsoidzie do współrzędnych geocentrycznych \textbf{BLH}.
@@ -167,32 +167,42 @@ W celu implementacji transformacji zalecane jest wykorzystanie systemu operacyjn
 
 
 
-    \subsection{Przebieg}
-    Ćwiczenie należało rozpocząć od utworzenia zdalnego repozytorium przez jednego członka z grupy i udostepnienia dostępu do repozyorium drugiemu członkowi. Na repozytorium zostały utworzone trzy gałęzie odpowiadającę elementą projektu. Galąź \textbf{README} i \textbf{LaTeX} zostały utworzone w celu umieszczania  na nich odpowiednio pliku README i sprawozdania w LaTeX. Na gałęzi \textbf{main} została utworzona klasa \textit{Transformacje} 
-    zawierająca impementację. Implementację zostały utworzone w oparciu o funkcję wykonującę transformację z przedmiotu Geodezja Wyższa w 3 semestrze. Przy pomocy metody \textit{init} zostały wykonane przeliczenia współrzędnych z różnych modeli elipsoid, których zmienne zostały zapisane podczas użycia odwołania \textit{self} w taki sposób aby implementację mogły wykorzystać parametry elisoidy wybranej przez użytkownika. W ćwiczeniu zostosowano wyrażenie warunkowe \textit{if \_\_name\_\_=="\_\_main\_\_"} zapewniającę większą czytelność kodu, oraz biblioteka \textit{argparse}, która umożliwiła użytkownikowi wywołanie programu z poziomu terminala.
-    \newline
+    \section{Przebieg ćwiczenia}
+    Ćwiczenie rozpoczęliśmy od utworzenia zdalnego repozytorium przez jednego członka z grupy i udostępnienia dostępu do repozytorium drugiemu członkowi.\\
+    Na \textbf{\href{https://github.com/Grabarzd/Projekt1}{repozytorium}} zostały utworzone cztery gałęzie odpowiadające elementom projektu. Gałąź \textbf{README} zostały utworzone w celu umieszczania na nich odpowiednio pliku README oraz jego aktualizacji. \\
+    Na gałęzi \textbf{main} została utworzona klasa \textit{Transformacje} 
+    zawierająca implementację oraz ostateczne wersję pozostałych plików poprzez \textbf{Merge pull request}.\\
+    Ostatnią założoną gałęzią jest \textbf{LaTeX} która posłużyła do obsługi i aktualizacji sprawozdania napisanego za pomocą języka LaTeX.\\
+    Implementację zostały utworzone w oparciu o funkcje zdefiniowane na ćwiczeniach z przedmiotu Geodezja Wyższa w trzecim semestrze.\\
+    Przy pomocy metody \textit{init} zostały wykonane przeliczenia współrzędnych z różnych modeli elipsoid, których zmienne zostały zapisane podczas użycia odwołania \textit{self} w taki sposób aby implementację mogły wykorzystać parametry elipsoidy wybranej przez użytkownika.\\
+    W ćwiczeniu zastosowano wyrażenie warunkowe \textit{if \_\_name\_\_=="\_\_main\_\_"} ma na celu sprawdzenie czy plik jest włączany bezpośrednio czy poprzez import skryptu.
+    \\\\
     Program został stworzony przy wykorzystaniu oprogramowania Spyder 5.4.3 w sposób umożliwiający zaimportowanie i zapis pliku w formacie \textit{.txt}.
-    Program został napisany oraz sprawdzony na urządzeniu obsługującym system operacyjny Windows 11, za pomocą języka python w wersji 3.10, w związku z brakiem możliwości przeprowadzenia testów oprogramowania na urządzeniach posiadających starszą wersję systemu operacyjnego nie byliśmy w stanie stwierdzić zgodności z tak owymi systemami. Przy pomocy klauzuli \textit{except} uniemożliwiliśmy uruchomienie programu dla przypadków podania przez użytkownika danych w złym zapisie, wybrania błędnego modelu elipsoidy oraz błędnej metody. W chwili, gdy użytkownik popełni któryś z wymienionych błędów, zostanie on      automatycznie poinformowany na którym etapie go wykonał. 
-
+    Program został napisany oraz sprawdzony na urządzeniu obsługującym system operacyjny Windows 11, za pomocą języka python w wersji 3.10, w związku z brakiem możliwości przeprowadzenia testów oprogramowania na urządzeniach posiadających starszą wersję systemu operacyjnego nie byliśmy w stanie stwierdzić zgodności z tak owymi systemami. Przy pomocy klauzuli \textit{except} uniemożliwiliśmy uruchomienie programu dla przypadków podania przez użytkownika danych w złym zapisie, wybrania błędnego modelu elipsoidy oraz błędnej metody. W chwili, gdy użytkownik popełni któryś z wymienionych błędów, zostanie on      automatycznie poinformowany na którym etapie go wykonał.
+    
+    \paragraph{Problemy napotkane podczas ćwiczenia:}
+\begin{itemize}
+    \item Utworzenie oraz próba połączenia zdalnego repozytorium, podczas próby dodania użytkownika wiersz poleceń jako output pokazywał błąd, rozwiązaliśmy ten problem poprzez \textbf{instalację dedykowanej aplikacji GitHub} która pozwoliła na sprawne i szybkie działanie w zdalnym repozytorium, dodatkowo zniwelowała częstotliwość występowanie błędów.
+    \item Obsługa biblioteki \textbf{argparse} oraz błędy w kodzie spowodowane złym zapisem argumentów.
+    \item Występujące błędy podczas próby zainicjowania programu w wierszu poleceń, rozwiązaliśmy to poprzez wykorzystanie komend \textbf{try} oraz \textbf{except} które po wykryciu opisanego błędu wskazują potencjalną przyczynę występowania problemu.
+    
+\end{itemize}
 
 
 \section{Wnioski}
-Praca nad projetem nauczyła nas korzystania ze zdalnego repozytorium \textit{GitHub}, dzięki któremu praca nad kodem stała się sprawniejsza. Mogliśmy podzielić obowiązki w grupie, co przyspieszyło tempo i efektywność pracy, ponieważ każda edycja pliku była widoczna.Dodatkowo nauczyliśmy się obsługi biblioteki \textit{argparse}
+Praca nad projetem nauczyła nas korzystania ze {\href{https://github.com/Grabarzd/Projekt1}{zdalnego repozytorium} w serwisie \textit{GitHub}, dzięki któremu praca nad kodem stała się sprawniejsza. Mogliśmy podzielić obowiązki w grupie, co przyspieszyło tempo i efektywność pracy, ponieważ każda edycja pliku była widoczna. Dodatkowo nauczyliśmy się obsługi biblioteki \textit{argparse}.
 \newline
 Ponadto udało nam się zwiększyć umiejętności w:
 \begin{itemize}
     \item pisaniu kodu obiektowego w Pythonie
     \item implementowaniu algorytmów pochodzących ze źródeł zewnętrznych
     \item tworzeniu dokumentów w latex
-    \item tworzeniu narzędzi w interfejsie tekstowym (cli) potrafiących przyjmować argumenty przy wywołaniu
-    \item pisaniu użytecznej dokumentacji
+    \item tworzeniu narzędzi w interfejsie tekstowym potrafiących przyjmować argumenty przy wywołaniu
+    
 \end{itemize}
 \vspace{1cm}
 
-\textbf{\large {Link do repozytorium}}
-\newline
-\textbf{\large https://github.com/Grabarzd/Projekt1}
-
+\centering\Large{\href{https://github.com/Grabarzd/Projekt1}{$\rightarrow$ Przekierowanie do repozytorium $\leftarrow$}
 
 \bibliographystyle{plain}
 \bibliography{biblio}
