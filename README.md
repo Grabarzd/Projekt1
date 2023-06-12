@@ -1,17 +1,19 @@
-# Transformacje.py
+# Projekt1
 
 
 
 Program Transformacje.py ma na celu transformacje pomiędzy układami współrzędnych takimi jak:
 
-```mermaid
 graph LR
 A[XYZ] -->B[BLH]
 C[BLH] --> D[XYZ]
 E[XYZ] --> F[NEU]
 G[BL] --> H[XY PL2000]
 I[BL] --> J[XY PL1992]
-``` 
+<<<<<<< Updated upstream
+```
+=======
+>>>>>>> Stashed changes
 
 
 Program został stworzony przy wykorzystaniu oprogramowania Spyder 5.4.3 w sposób umożliwiający zaimportowanie pliku w formacie .txt, owy plik pozwoli na transformację danych w ograniczonych wyłącznie ilością współrzędnych.
@@ -98,7 +100,7 @@ Komenda odpowiadająca za pomoc wskazuje opcje możliwe do wykorzystania:
 - -method pozwala na wybór transformacji jaką chcemy rozpocząć:
 	- XYZ pozwala na wyznaczenie XYZ wykorzystując współrzędne geocentryczne BLH ( jest to wartość podstawowa, zostaje zaimplementowana w przypadku gdy nie uwzględnimy zmiennej -method)
 	- BLH rozpoczyna transformację danych z XYZ do BLH
-	- NEU przekształca XYZ w macierz obrotu NEU
+	- NEU przekształca XYZ do współrzędnych NEU
 	- PL2000 transformuje BL w współrzędne płaskie w układzie PL2000
 	- PL1992 transformuje BL w współrzędne płaskie w układzie PL1992
 
@@ -129,6 +131,8 @@ Błędy jakie program rozwiązuje to następująco:
 - Wybór elipsoidy nie uwzględnionej w programie:
 - Plik posiada niepoprawną ilość danych do przeprowadzenia transformacji
 - Próba obsługi niedostępnego formatu pliku
+
+Jednakże podczas wyboru elipsoidy Krasowskiego w celu wykonania metody PL1992, oraz PL2000 otrzymujemy nie poprawne wartości.
 
 Rozpoczęcie skryptu zainicjuje implementacje transformacje pliku z danymi oraz jako output utworzy plik tekstowy w katalogu w którym znajduje się plik Transformacje.py:
 
