@@ -34,7 +34,7 @@
 \thispagestyle{empty}
 \begin{center}{\sc \Large
 Politechnika Warszawska\\
-}\par\vspace{0.2cm}\par 
+}\par\vspace{0.2cm}\par
 {\large
 Wydział Geodezji i Kartografii\\
 Kierunek Geodezja i Kartografia
@@ -119,7 +119,7 @@ W celu implementacji transformacji zalecane jest wykorzystanie systemu operacyjn
         \begin{flushright}
             \cite{ewmapa}
         \end{flushright}
-        \item \textbf{XYZ} $\rightarrow$ \textbf{NEU} --funkcja transformująca współrzędne kartezjańskie \textbf{XYZ} na elipsoidzie do macierzy obrotu \textbf{NEU}
+        \item \textbf{XYZ} $\rightarrow$ \textbf{NEU} --funkcja transformująca współrzędne kartezjańskie \textbf{XYZ} na elipsoidzie do współrzędnych \textbf{NEU}
         \begin{flushright}
             \cite{ASGEUPOS2021}
         \end{flushright}
@@ -185,7 +185,7 @@ W celu implementacji transformacji zalecane jest wykorzystanie systemu operacyjn
     \item Utworzenie oraz próba połączenia zdalnego repozytorium, podczas próby dodania użytkownika wiersz poleceń jako output pokazywał błąd, rozwiązaliśmy ten problem poprzez \textbf{instalację dedykowanej aplikacji GitHub} która pozwoliła na sprawne i szybkie działanie w zdalnym repozytorium, dodatkowo zniwelowała częstotliwość występowanie błędów.
     \item Obsługa biblioteki \textbf{argparse} oraz błędy w kodzie spowodowane złym zapisem argumentów.
     \item Występujące błędy podczas próby zainicjowania programu w wierszu poleceń, rozwiązaliśmy to poprzez wykorzystanie komend \textbf{try} oraz \textbf{except} które po wykryciu opisanego błędu wskazują potencjalną przyczynę występowania problemu.
-    
+    \item metoda PL1992 i PL2000 nie daje poprawnych wyników dla elipsoidy Krasowskiego
 \end{itemize}
 
 
