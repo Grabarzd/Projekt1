@@ -20,7 +20,7 @@ try:
                             -WGS84
                             -Krasowskiego
                         """
-                        
+                        self.model = model
                         if model == "GRS80":
                             self.a = 6378137
                             self.b = 6356752.31414036
@@ -110,27 +110,46 @@ try:
                         
                     
                     
-                    def NEU(self,X,Y,Z):
+                    def NEU(self,Xa,Ya,Za,Xb,Yb,Zb):
                         '''
-                        Funkcja ma na celu wyznaczenie macierzy obrotu dla podanych współrzędnych kartezjańskich
                 
                         INPUT:
                         *******___
-                        X-odległość od środka masy ziemii do punktu, równoległa do kierunku północy     || type==float, units==meters
-                        Y-odległość od środka masy ziemii do punktu, równoległa do kierunku wschodu     || type==float, units==meters
-                        Z-odległość od środka masy ziemii do punktu, równoległa do osi obrotu ziemii    || type==float, units==meters
-                
+                        Xa-odległość od środka masy ziemii do odbiornika, równoległa do kierunku północy     || type==float, units==meters
+                        Ya-odległość od środka masy ziemii do odbiornika, równoległa do kierunku wschodu     || type==float, units==meters
+                        Za-odległość od środka masy ziemii do odbiornika, równoległa do osi obrotu ziemii    || type==float, units==meters
+                        Xb-odległość od środka masy ziemii do satelity, równoległa do kierunku północy     || type==float, units==meters
+                        Yb-odległość od środka masy ziemii do satelity, równoległa do kierunku wschodu     || type==float, units==meters
+                        Zb-odległość od środka masy ziemii do satelity, równoległa do osi obrotu ziemii    || type==float, units==meters
+                        
                         OUTPUT:
                         *******
-                        NEU-macierz obrotu                                                              || type==array, units in array==none
+                        NEU-współrzędne neu                                                              || type==array, units in array==none
                         
                         Dodatkowy opis:
                         ***************
-                        Argumenty w macierzy są wynikami zaiplementowanych funkcji trygonometrycznych z czego wynika brak jednostek.
+                        
+                        Algorytm transformacji współrzędnych odbiornika xa, ya, za na współrzędne neu w układzie topocentrycznym na
+                        podstawie wspolrzednych X,Y,Z odbiornika i satelity.
+                        Parameters
+                        ----------
+                        Xa, Ya, Za, Xb, Yb, Zb : FLOAT
+                            współrzędne geodezyjne, 
+                
+                        Returns
+                        -------
+                        n
+                            [metry] - wartosc wspolrzednej n
+                        e
+                            [metry] - wartosć wspolrzednej e
+                        u
+                            [metry] - wartosć wspolrzednej u
+                    
                         '''
-                        p = np.sqrt(X**2 + Y**2)
+                        p = np.sqrt(Xa**2 + Ya**2)
+                        
                         #print('p=',p)
-                        f = np.arctan(Z /( p * (1 - self.e2)))
+                        f = np.arctan(Za /( p * (1 - self.e2)))
                         #dms(f)
                         while True:
                             N = self.a / np.sqrt(1- self.e2 * np.sin(f)**2)
@@ -138,19 +157,28 @@ try:
                             h = (p / np.cos(f)) - N
                         # print('h = ',h)
                             fp = f
-                            f = np.arctan(Z / (p * (1 - self.e2 * (N / (N + h)))))
+                            f = np.arctan(Za / (p * (1 - self.e2 * (N / (N + h)))))
                             #dms(f)
                             if np.abs(fp - f) <( 0.000001/206265):
                                 break
-                        l = np.arctan2(Y,X)
-                        NEU = np.array([[-np.sin(f)*np.cos(l), -np.sin(l), np.cos(f)*np.cos(l)],
-                                    [-np.sin(f)*np.sin(l), np.cos(l), np.cos(f)*np.sin(l)],
-                                    [np.cos(f), 0, np.sin(f)]])
+                        l = np.arctan2(Ya,Xa)
+                        Rneu = np.array(
+                            [
+                                [-np.sin(f) * np.cos(l), -np.sin(l), np.cos(f) * np.cos(l)], 
+                                [-np.sin(f) * np.sin(l), np.cos(l), np.cos(f) * np.sin(l)], 
+                                [np.cos(f), 0, np.sin(f)]
+                            ]
+                        )
+                        dx = np.array([Xb - Xa, Yb - Ya, Zb - Za])
+                        neu = Rneu.T @ dx
+                        print(f"Wynik transformacji XYZ -> NEU na elipsoidzie {self.model} to:\n",
+                            f"N = {neu[0]}\n",
+                            f"E = {neu[1]}\n",
+                            f"U = {neu[2]}")
+                        NEU=neu
                         return NEU
                         
-                        
-                        
-                        
+                   
                     def fl2xygk1992(self,f,l):
                         '''
                         Funkcja ma na celu wyznaczenie współrzędnych płaskich dla odwzorowania Gaussa-Krugera dla układu PL2000
@@ -334,6 +362,46 @@ try:
                                 dane.append([float(X),float(Y),float(Z)])
                         return(dane)
                     
+                    def XYZNEU(self,filepath):
+                        '''
+                        Funkcja ma na celu odczytanie wartości XYZ z pliku z danymi
+                        
+                        INPUT:
+                        *******
+                        filepath-ścieżka do pliku w formacie .txt                                                  || type==str, units==none
+
+                        OUTPUT:
+                        *******
+                        dane-lista do której zostają zapisane dane z pliku w postaci [Xa,Ya,Za,Xb,Yb,Zb]     || type==list, units in list==meters
+                        Xa-odległość od środka masy ziemii do odbiornika, równoległa do kierunku północy     || type==float, units==meters
+                        Ya-odległość od środka masy ziemii do odbiornika, równoległa do kierunku wschodu     || type==float, units==meters
+                        Za-odległość od środka masy ziemii do odbiornika, równoległa do osi obrotu ziemii    || type==float, units==meters
+                        Xb-odległość od środka masy ziemii do satelity, równoległa do kierunku północy     || type==float, units==meters
+                        Yb-odległość od środka masy ziemii do satelity, równoległa do kierunku wschodu     || type==float, units==meters
+                        Zb-odległość od środka masy ziemii do satelity, równoległa do osi obrotu ziemii    || type==float, units==meters
+                        || type==float, units==meters
+
+
+                        Dodatkowy opis:
+                        ***************
+                        
+                        '''
+                        file=open(filepath,'r')
+                        wiersze=file.readlines()
+                        dane=[]
+                        for i in wiersze:
+                            xyz=i.split(' ')
+                            Xa=xyz[0]
+                            Ya=xyz[1]
+                            Za=xyz[2]
+                            Xb=xyz[3]
+                            Yb=xyz[4]
+                            Zb=xyz[5]
+                            if '\n' in Zb:
+                                Zb=Zb[:-1]
+                            dane.append([float(Xa),float(Ya),float(Za),float(Xb),float(Yb),float(Zb)])
+                        return(dane)
+                    
                     def BLH(self,filepath):
                         '''
                         Funkcja ma na celu odczytanie wartości BLH z pliku z danymi
@@ -446,7 +514,8 @@ try:
                                 export.write(f'|{kolejnosc:8}|{B:23.7f}|{L:23.7f}|{H:23.3f}|\n')
                             export.write(81*'-')
                             export.close()
-                                
+                            
+                            
                                 
                         elif args.method=='XYZ':     
                             dane=trans.BLH(args.filepath)
@@ -468,22 +537,29 @@ try:
                                 
                                 
                         elif args.method=='NEU':
-                            dane=trans.XYZ(args.filepath)
+                            dane=trans.XYZNEU(args.filepath)
                             export=open('Dane_Z_Transformacjii_NEU.txt','w')
                             for i in dane:
                                 kolejnosc+=1
-                                X=i[0]
-                                Y=i[1]
-                                Z=i[2]
-                                NEU=trans.NEU(X,Y,Z)
-                                print(f'{NEU=}')
-                                export.write(7*' '+f'Macierz obrotu dla pkt {kolejnosc}\n')
-                                export.write(' _'+33*(' ')+'_\n')
-                                export.write('|'+35*(' ')+'|\n')
-                                export.write(f'|{NEU[0][0]:10.7f}  {NEU[0][1]:10.7f}   {NEU[0][2]:10.7f}|\n|{NEU[1][0]:10.7f}  {NEU[1][1]:10.7f}   {NEU[1][2]:10.7f}|\n|{NEU[2][0]:10.7f}  {NEU[2][1]:10.7f}   {NEU[2][2]:10.7f}|\n')
-                                export.write('|_'+33*(' ')+'_|'+5*'\n')
-                            export.close()
+                                Xa=i[0]
+                                Ya=i[1]
+                                Za=i[2]
+                                Xb=i[3]
+                                Yb=i[4]
+                                Zb=i[5]
+                                NEU=trans.NEU(Xa,Ya,Za,Xb,Yb,Zb)
+                                export.write(46*'-'+'\n')
+                                export.write('|           Wykaz przeliczenia NEU           |\n')
+                                export.write(46*'-'+'\n')
+                                export.write('| NR PKT |    N[m]   |    E[m]   |    U[m]   |\n')
+                                export.write(46*'-'+'\n')
+                                export.write(f'|{kolejnosc:8}| {NEU[0]:10.7f}| {NEU[1]:10.7f}| {NEU[2]:10.7f}|\n')
                                 
+                                export.write(46*'-'+'\n')
+                            export.close()
+                             
+                            
+                            
                         elif args.method=='PL2000':
                             dane=trans.BL(args.filepath)
                             export=open('Dane_Z_Transformacjii_PL2000.txt','w')
